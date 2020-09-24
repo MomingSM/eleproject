@@ -1,0 +1,35 @@
+.maintemp{
+    background-color: rgba(255,255,255,1);
+    border-top: rgba(221,221,221,1) 1px solid;
+    text-align: center;
+
+}
+.maintemp .row{
+    height: 60px;
+}
+.maintemp h6{
+    margin-top: 10px;
+}
+.maintemp i{
+    display: block;
+}
+
+
+.backtotop{
+    position: fixed;
+    right: 2em;
+    bottom: 4em;
+}
+.topbannertepm{
+    background-color: #0097FF;
+    padding-top:  1em;
+    padding-bottom: 1em;
+}
+.search{
+    height: 40px;
+    background-color: #0097FF;
+}
+.topbannerinfo{
+    height: 40px;
+    padding-left: 20px;
+}
