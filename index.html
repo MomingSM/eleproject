@@ -16,27 +16,15 @@
 </head>
 <body>
 <div id="app">
-    <topbanner>
-        <div slot="location" class="topbannerinfo text-white font-weight-bold">
-            <i class="fa fa-location-arrow"></i>大连河口软件园 <i class="fa fa-caret-down "></i>
-        </div>
-        <div slot="content">
-            <div class="input-group mb-0 mt-0 col-10 offset-1">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-search"></i></span>
-                </div>
 
-                    <input type="text" class="form-control" placeholder="搜索饿了么商家、商品名称" style="padding-left: 30px">
+    <!-- 各个组件的显示区  通过animate 添加渐变动画 -->
+    <transition enter-active-class="animated fadeIn">
+        <router-view></router-view>
+    </transition>
 
-            </div>
-        </div>
-    </topbanner>
-    <div style="height: 6000px;background-color:red"></div>
-    <maincpn></maincpn>
-    <backtotop></backtotop>
 </div>
 
-
+<!-- -------------------------------------------模板创建区---------------------------------------->
 <!-- 主页面顶部信息栏模板-->
 <template id="topbannertepm">
     <div class="topbannertepm">
@@ -48,10 +36,10 @@
 <template id="maintemp">
     <div class="container-fluid fixed-bottom maintemp text-muted text-center">
         <div class="row">
-            <h6 class="col-3"><i class="fa fa-home"></i>首页</h6>
-            <h6 class="col-3"><i class="fa fa-compass"></i>发现</h6>
-            <h6 class="col-3"><i class="fa fa-file-text-o"></i>订单</h6>
-            <h6 class="col-3"><i class="fa fa-user-o"></i>我的</h6>
+            <h6 class="col-3"><router-link to="/home"><i class="fa fa-home"></i>首页</router-link></h6>
+            <h6 class="col-3"><router-link to="/find"><i class="fa fa-compass"></i>发现</router-link></h6>
+            <h6 class="col-3"><router-link to="/orderlist"><i class="fa fa-file-text-o"></i>订单</router-link></h6>
+            <h6 class="col-3"><router-link to="/login"><i class="fa fa-user-o"></i>我的</router-link></h6>
         </div>
     </div>
 </template>
@@ -65,6 +53,142 @@
     </transition>
 </template>
 
+<!-- 主界面十个小模块的模板-->
+<template id="typelist">
+    <div class="container-fluid">
+        <div class="row">
+            <div v-for="(item, index) in $root.topTypeLists" :class="{'offset-1':index%5==0}"  class="col-2">
+                <img :src="item.tpic" :alt="item.tname" >
+                <p>{{item.tname}}</p>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<!-- 主界面广告信息组件模板-->
+<template id="indexad">
+    <div class="container-fluid">
+        <div class="row bgimg" >
+            <h3 class="col-12">品质套餐</h3>
+            <p class="col-12">搭配齐全吃得好</p>
+            <p class="col-12">立即抢购</p>
+
+        </div>
+        <div class="row supermember">
+            <img src="img/super_member.png" alt="超级会员">
+            <h3 class="font-weight-bold superinfo"> 超级会员 </h3>
+            <p> • 每月享超值权益 </p>
+        </div>
+
+        <div class="row text-center">
+            <h3>推荐商家</h3>
+        </div>
+        <div class="row">
+            <p class="col-3">综合排序<i class="fa fa-caret-down"></i></p>
+            <p class="col-3">距离最近</p>
+            <p class="col-3">销量最高</p>
+            <p class="col-3">筛选 <i class="fa fa-filter"></i></p>
+        </div>
+
+    </div>
+</template>
+
+<template id="storeLists">
+    <div class="container-fluid">
+        <div class="row text-muted" v-for="(item, index) in $root.infoLists">
+            <div class="col-12 col-sm-2">
+                <img :src="item.imgPath" alt="item.storeName" class="productimg">
+            </div>
+            <div class="col-8 col-sm-6">
+                <h3>{{item.storeName}}</h3>
+                <p><i v-for="i in item.stars" class="fa fa-star text-warning"></i>{{item.score}} 月售{{item.salse}}单</p>
+                <p>{{item.description}}</p>
+                <p><span>新</span>饿了么新用户首单立减9元</p>
+                <p><span>特</span>特价商品5元起</p>
+
+            </div>
+            <div class="col-4 col-sm-4">
+                <p>.</p>
+                <p><span>{{item.sendWay}}</span></p>
+                <p>{{item.distance}} | {{item.sendTime}}分钟</p>
+                <p><i class="fa fa-caret-down"></i></p>
+            </div>
+        </div>
+    </div>
+</template>
+<!-- -----------------------------------------大组件-------------------------------------------->
+<!-- 主界面index对应的大组件模板-->
+
+<!-- 主界面大组件 -->
+<template id="homeTemp">
+    <div>
+        <topbanner>
+            <div slot="location" class="topbannerinfo text-white font-weight-bold">
+                <i class="fa fa-location-arrow"></i>大连高新区河口软件园 <i class="fa fa-caret-down "></i>
+            </div>
+            <div slot="content">
+                <div class="input-group mb-0 mt-0 col-10 offset-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+
+                    <input type="text" class="form-control" placeholder="搜索饿了么商家、商品名称" style="padding-left: 30px">
+
+                </div>
+            </div>
+        </topbanner>
+        <toptypecpn></toptypecpn>
+        <indexadcpn></indexadcpn>
+        <storelistscpn></storelistscpn>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+<!-- 发现对应的大组件 里面具体内容是商家列表-->
+<template id="findTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center ">
+                <h3>商品列表</h3>
+            </div>
+        </topbanner>
+        <div style="height: 6000px;background-color:yellow"></div>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+
+</template>
+
+<!-- 订单对应的大组件 具体内容是订单列表 -->
+<template id="orderListTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center ">
+                <h3>订单列表</h3>
+            </div>
+        </topbanner>
+        <div style="height: 6000px;background-color:greenyellow"></div>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+<!-- '我的'对应的登陆界面的大组件 具体内容是登陆信息-->
+
+<template id="loginTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center ">
+                <h3>用户登陆</h3>
+            </div>
+        </topbanner>
+        <div style="height: 6000px;background-color:orange"></div>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="js/jquery-3.3.1.js"></script>
@@ -127,32 +251,124 @@
         methods:{
             getTopDistance:function () {
                 this.topDistance = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+                if($(".topbannerinfo").length){
                 if(this.topDistance >40){
                     $(".topbannerinfo").css("display","none");
                     $(".topbannertepm").addClass("fixed-top");
+
                 }else{
                     $(".topbannerinfo").css("display","block");
                     $(".topbannertepm").removeClass("fixed-top");
+                }
+                }else{
+                    $(".topbannertepm").addClass("fixed-top");
                 }
             },
 
         }
     });
+
+
+    // 创建顶部类型列表组件
+    let topTypeCpn = Vue.extend({
+        template:'#typelist'
+
+    });
+
+    // 创建广告信息栏的组件
+    let indexadCpn = Vue.extend({
+        template:'#indexad'
+    });
+
+    // 创建主页面店家列表组件
+    let storeListsCpn = Vue.extend({
+        template:'#storeLists'
+    });
+
+
+
+
+    // 创建主界面index的大组件
+    let homeCpn = Vue.extend({
+       template:'#homeTemp',
+       props:[]
+    });
+
+    // 创建发现界面find的大组件
+    let findCpn = Vue.extend({
+        template:'#findTemp'
+    });
+
+    // 创建订单了列表orderlist的大组件
+    let orderListCpn = Vue.extend({
+        template:'#orderListTemp'
+    });
+
+    // 创建登陆界面的login大组件
+    let loginCpn = Vue.extend({
+        template:'#loginTemp'
+    });
+
+
     // ---------------------------组件注册区---------------------------------
+
+    // 小组件区
     let maincpntt = Vue.component('maincpn', maincpn);
     let backtoptt = Vue.component('backtotop', backtopcpn);
     let topbannercpn = Vue.component('topbanner',topbanner);
+    let toptypecpn = Vue.component('toptypecpn',topTypeCpn);
+    let indexadcpn = Vue.component('indexadcpn',indexadCpn);
+    let storelistscpn = Vue.component('storelistscpn',storeListsCpn);
 
 
+    // 大组件区
+    let homecpn = Vue.component('homecpn',homeCpn);
+    let findcpn = Vue.component('findcpn',findCpn);
+    let orderlistcpn = Vue.component('orderlistcpn',orderListCpn);
+    let logincpn = Vue.component('logincpn',loginCpn);
 
+    //---------------------------过滤器区------------------------------------
 
+    //创建全局过滤器: 在金额的前面添加¥
+    Vue.filter('moneyFmt', function (value) {
+        if (parseFloat(value)) {
+            return "¥ " + parseFloat(value).toFixed(2);
+        }
+    });
 
+    // ---------------------------------路由配置区-----------------------------------------
+    // 配置路由
+    let routers = [
+        {path:'/home',component:homeCpn},
+        {path:'/find',component:findCpn},
+        {path:'/orderlist',component:orderListCpn},
+        {path:'/login',component:loginCpn},
+        {path:'/',component:homeCpn},
+        {path:'*',component:homeCpn}
+    ];
+    // 生成路由实例
+    let myrouter = new VueRouter({
+       routes:routers
+    });
 
-
-
+    // ---------------------------------Vue对象--------------------------------------------
     const vm = new Vue({
         el: "#app", /* */
-        data: {}
+        data: {
+            infoLists:[],
+            topTypeLists:[]
+        },
+        router:myrouter,
+        mounted(){
+            this.$http.get("info/storeinfo.json").then(
+                function (res) {
+                    this.infoLists = res.body.dataZone;
+                    console.log(this.infoLists);
+                    this.topTypeLists = res.body.topInfoList;
+                    console.log(this.topTypeLists);
+                }
+            )
+        }
     });
 
 </script>

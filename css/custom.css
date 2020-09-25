@@ -1,3 +1,4 @@
+/****************** 主界面蓝色导航栏 ******************/
 .maintemp{
     background-color: rgba(255,255,255,1);
     border-top: rgba(221,221,221,1) 1px solid;
@@ -14,7 +15,7 @@
     display: block;
 }
 
-
+/****************** 返回顶部组件 ******************/
 .backtotop{
     position: fixed;
     right: 2em;
@@ -32,4 +33,59 @@
 .topbannerinfo{
     height: 40px;
     padding-left: 20px;
+}
+
+a {
+    text-decoration: none;
+
+}
+/*正常的未被访问过的链接*/
+a:link {
+    text-decoration: none;
+}
+/*已经访问过的链接*/
+a:visited {
+    text-decoration: none;
+}
+/*鼠标划过(停留)的链接*/
+a:hover {
+    text-decoration: none;
+}
+/* 正在点击的链接*/
+a:active {
+    text-decoration: none;
+}
+
+/****************** 超级会员部分 ******************/
+.bgimg {
+    /*此三个样式组合，可以保证背景图片充满整个容器*/
+    height: 266px;
+    background-image: url(../img/index_banner.png);
+    width: 100%;
+    margin: 20px auto;
+}
+.supermember{
+    background-color: #FEEDC1;
+    width: 100%;
+    margin: 0 auto;
+    height: 100px;
+}
+.supermember img{
+    width: 40px;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+.supermember h3{
+    color: #644f1b;
+    margin-left: 10px;
+    line-height: 100px;
+}
+.supermember p{
+    margin-left: 10px;
+    line-height: 100px;
+}
+.productimg{
+    width: 100%;
 }
