@@ -27,7 +27,7 @@
 <!-- -------------------------------------------模板创建区---------------------------------------->
 <!-- 主页面顶部信息栏模板-->
 <template id="topbannertepm">
-    <div class="topbannertepm">
+    <div class="topbannertepm fixed-top">
         <slot name="location"></slot>
         <slot name="content"></slot>
     </div>
@@ -55,11 +55,13 @@
 
 <!-- 主界面十个小模块的模板-->
 <template id="typelist">
-    <div class="container-fluid">
+    <div class="container-fluid typelist">
         <div class="row">
-            <div v-for="(item, index) in $root.topTypeLists" :class="{'offset-1':index%5==0}"  class="col-2">
+            <div v-for="(item, index) in $root.topTypeLists" :class="{'offset-1':index%5==0}"  class="col-2 text-center tenmodel">
                 <img :src="item.tpic" :alt="item.tname" >
+                <router-link to="/find">
                 <p>{{item.tname}}</p>
+                </router-link>
             </div>
         </div>
 
@@ -69,20 +71,24 @@
 <!-- 主界面广告信息组件模板-->
 <template id="indexad">
     <div class="container-fluid">
-        <div class="row bgimg" >
-            <h3 class="col-12">品质套餐</h3>
+        <div class="bgimg" >
+            <h3 class="col-12 font-weight-bold">品质套餐</h3>
             <p class="col-12">搭配齐全吃得好</p>
-            <p class="col-12">立即抢购</p>
-
+            <router-link to="/orderlist">
+            <p class="col-12 text-warning">立即抢购 ></p>
+            </router-link>
         </div>
         <div class="row supermember">
             <img src="img/super_member.png" alt="超级会员">
             <h3 class="font-weight-bold superinfo"> 超级会员 </h3>
             <p> • 每月享超值权益 </p>
+            <router-link to="/register">
+            <p class="text-right text-warning">立即开通</p>
+            </router-link>
         </div>
 
-        <div class="row text-center">
-            <h3>推荐商家</h3>
+        <div class="row text-center font-weight-bold recommendstore">
+            <h3>— 推荐商家 —</h3>
         </div>
         <div class="row">
             <p class="col-3">综合排序<i class="fa fa-caret-down"></i></p>
@@ -94,14 +100,17 @@
     </div>
 </template>
 
+
+<!-- 主界面商品列表模板 -->
 <template id="storeLists">
-    <div class="container-fluid">
+    <div class="container-fluid storeLists">
+        <router-link to="/businessinfo">
         <div class="row text-muted" v-for="(item, index) in $root.infoLists">
             <div class="col-12 col-sm-2">
                 <img :src="item.imgPath" alt="item.storeName" class="productimg">
             </div>
             <div class="col-8 col-sm-6">
-                <h3>{{item.storeName}}</h3>
+                <h3 class="font-weight-bold text-dark">{{item.storeName}}</h3>
                 <p><i v-for="i in item.stars" class="fa fa-star text-warning"></i>{{item.score}} 月售{{item.salse}}单</p>
                 <p>{{item.description}}</p>
                 <p><span>新</span>饿了么新用户首单立减9元</p>
@@ -111,12 +120,214 @@
             <div class="col-4 col-sm-4">
                 <p>.</p>
                 <p><span>{{item.sendWay}}</span></p>
-                <p>{{item.distance}} | {{item.sendTime}}分钟</p>
+                <p>{{item.distance | kmFmt}} | {{item.sendTime}}分钟</p>
                 <p><i class="fa fa-caret-down"></i></p>
+            </div>
+        </div>
+        </router-link>
+    </div>
+</template>
+
+
+<!-- find界面商家信息列表模板-->
+<template id="findStoreLists">
+    <div class="container-fluid">
+        <router-link to="/businessinfo">
+        <div class="row text-muted findStoreLists" v-for="(item, index) in $root.infoLists">
+            <div class="col-4 col-sm-2">
+                <img :src="item.imgPath" alt="item.storeName" class="productimg">
+            </div>
+            <div class="col-8 col-sm-6">
+
+                <h3 class="font-weight-bold text-dark">{{item.storeName}}</h3>
+                <p>{{item.sendFee | moneyFmt}}起送 | {{item.deliveryCost | moneyFmt}}配送</p>
+                <p>{{item.description}}</p>
+
+            </div>
+        </div>
+        </router-link>
+    </div>
+</template>
+
+<!-- 我的界面里登陆注册按钮模板-->
+<template id="loginCpnTemp">
+    <div class="container-fluid">
+        <div class="row loginCpnTemp">
+            <h4 class="col-3 font-weight-bold text-dark">手机号码:</h4><input type="text" class="col-9 form-control border-0" placeholder="手机号码">
+            <h4 class="col-3 font-weight-bold text-dark">密码:</h4><input type="text" class="col-9 form-control border-0" placeholder="密码">
+            <div class="col-12 text-white"><button type="button" class=" btn btn-success btn-lg btn-block">登陆</button></div>
+            <div class="col-12 text-dark">
+                <router-link to="/register">
+                <button type="button" class=" btn btn-light btn-lg btn-block">注册</button>
+                </router-link>
             </div>
         </div>
     </div>
 </template>
+
+<!-- 注册页面里的小组件-->
+
+<template id="registerInnerTemp">
+    <div class="container-fluid">
+        <div class="row loginCpnTemp">
+            <h4 class="col-3 font-weight-bold text-dark">手机号码:</h4><input type="text" class="col-9 form-control border-0" placeholder="手机号码">
+            <h4 class="col-3 font-weight-bold text-dark">密码:</h4><input type="text" class="col-9 form-control border-0" placeholder="密码">
+            <h4 class="col-3 font-weight-bold text-dark">确认密码:</h4><input type="text" class="col-9 form-control border-0" placeholder="确认密码">
+            <h4 class="col-3 font-weight-bold text-dark">用户姓名:</h4><input type="text" class="col-9 form-control border-0" placeholder="用户姓名">
+            <h4 class="col-3 font-weight-bold text-dark">性别:</h4>
+            <div class="col-9 sexinput">
+                <label for="optradio1"><input type="radio" name="optradio" id="optradio1" checked="checked"/>男</label>
+                <label for="optradio2"><input type="radio" name="optradio" id="optradio2" />女</label>
+            </div>
+            <div class="col-12 text-dark">
+                <button type="button" class=" btn btn-success btn-lg btn-block">注册</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+
+<!-- 订单界面底部结算模板-->
+<template id="orderBottomTemp">
+    <div class="container-fluid  orderBottomTemp text-white text-center">
+        <div class="row">
+            <div class="col-8 bg-dark font-weight-bold"><h3>{{$root.amount | moneyFmt}}</h3><h6>另需配送费¥3</h6></div>
+
+            <div class="col-4 bg-success"><router-link to="/orderlist" class="text-white text-center"><h3>订单结算</h3></router-link></div>
+
+        </div>
+    </div>
+</template>
+
+<!-- 商家信息具体的内容模板-->
+
+<template id="busContentTemp">
+    <div class="container-fluid">
+
+        <div class="col-12 text-center">
+            <img src="img/sj01.png" class="productimg">
+        </div>
+
+        <div class="col-12 text-center">
+            <h3 class="font-weight-bold text-dark">万家饺子 (软件园E18店)</h3>
+            <p>{{15 | moneyFmt}}起送 | {{3 | moneyFmt}}配送</p>
+            <p>各种饺子炒菜</p>
+        </div>
+        <div class="row text-muted" v-for="(item, index) in $root.goodsLists">
+            <div class="col-3">
+                <img :src="item.gpic" alt="item.gname" class="productimg">
+            </div>
+            <div class="col-6">
+                <h3 class="font-weight-bold text-dark">{{item.gname}}</h3>
+                <p>{{item.gdes}}</p>
+                <p>{{item.gprice | moneyFmt}}</p>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn"  @click="item.gcount--" :disabled="item.gcount==0">
+                    <i class="fa fa-minus-circle"></i>
+                </button>
+                    {{item.gcount}}
+                <button type="button" class="btn"  @click="item.gcount++" :disabled="item.gcount>9">
+                <i class="fa fa-plus-circle text-primary"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+
+<template id="orderInnerTemp">
+    <div class="container-fluid row">
+
+        <h4 class="col-12 text-muted">未支付订单信息:</h4>
+
+        <div class="col-6">
+            <h4 class="font-weight-bold text-dark ">万家饺子 (软件园E18店) <i class="fa fa-caret-down" @click="showorder()"></i></h4>
+        </div>
+        <div class="col-6">
+            <h4 class="text-danger text-right">{{$root.amount | moneyFmt}}
+                <router-link to="/conformorder">
+                <button class="btn btn-warning  text-white">去支付</button>
+                </router-link>
+            </h4>
+        </div>
+        <div v-show="flag">
+            <div v-for="(item, index) in $root.orderlists" class="row" >
+                <h4 class="col-6 offset-1">{{item.gname}} x {{item.gcount}}</h4>
+                <h4 class="col-4 text-right">{{item.gcount * item.gprice | moneyFmt}}</h4>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="orderConformTemp">
+    <div class="container-fluid row">
+
+        <div class="ml-3 bg-primary row pl-3">
+            <p class="text-white pt-3 ">订单配送至：</p>
+            <h2 class="row text-white  col-12 font-weight-bold">沈阳市浑南区智慧四街1-121号 </h2>
+            <h2 class="text-right text-white"><i class=" fa fa-angle-right "></i></h2>
+            <p class="text-white">迟程闯先生 13372890725</p>
+
+        </div>
+
+        <div class="col-6">
+            <h4 class="font-weight-bold text-dark ">万家饺子 (软件园E18店)</h4>
+        </div>
+        <div class="col-6">
+            <h4 class="text-danger text-right">{{$root.amount | moneyFmt}}</h4>
+        </div>
+        <div v-for="(item, index) in $root.orderlists "><h4 class="col-6 offset-1">{{item.gname}} x {{item.gcount}}</h4>
+            <h4 class="col-4 text-right">{{item.gcount * item.gprice | moneyFmt}}</h4>
+        </div>
+
+
+        <div class="container-fluid  orderBottomTemp text-white text-center mt-3">
+            <div class="row">
+                <div class="col-8 bg-dark font-weight-bold"><h3>{{$root.amount | moneyFmt}}</h3><h6>另需配送费¥3</h6></div>
+
+                <div class="col-4 bg-success">
+                    <router-link to="/pay" class="text-white text-center">
+                        <h3>去支付</h3>
+                    </router-link>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="payInnerTemp">
+    <div class="container-fluid row">
+
+        <h4 class="col-12 text-muted">订单信息:</h4>
+
+        <div class="col-6">
+            <h4 class="font-weight-bold text-dark ">万家饺子 (软件园E18店)<i class="fa fa-caret-down" @click="showorder()"></i></h4>
+        </div>
+        <div class="col-6">
+            <h4 class="text-danger text-right">{{$root.amount | moneyFmt}}</h4>
+        </div>
+        <div v-show="flag">
+        <div v-for="(item, index) in $root.orderlists "><h4 class="col-6 offset-1">{{item.gname}} x {{item.gcount}}</h4>
+            <h4 class="col-4 text-right">{{item.gcount * item.gprice | moneyFmt}}</h4>
+        </div>
+        </div>
+
+
+            <p class="col-11 mt-5"><img src="img/alipay.png" alt=""></p>
+            <h4 class="text-right col-1 mt-5"><i class="fa fa-check-circle text-success"></i></h4>
+            <p class="col-12 mt-2"><img src="img/wechat.png" alt=""></p>
+
+        <div class="col-12 text-dark mt-4">
+            <button type="button" class=" btn btn-success btn-lg btn-block">确认支付</button>
+        </div>
+
+    </div>
+</template>
+
 <!-- -----------------------------------------大组件-------------------------------------------->
 <!-- 主界面index对应的大组件模板-->
 
@@ -124,7 +335,7 @@
 <template id="homeTemp">
     <div>
         <topbanner>
-            <div slot="location" class="topbannerinfo text-white font-weight-bold">
+            <div slot="location" class="text-white font-weight-bold">
                 <i class="fa fa-location-arrow"></i>大连高新区河口软件园 <i class="fa fa-caret-down "></i>
             </div>
             <div slot="content">
@@ -138,7 +349,7 @@
                 </div>
             </div>
         </topbanner>
-        <toptypecpn></toptypecpn>
+        <toptypecpn class="topmargin"></toptypecpn>
         <indexadcpn></indexadcpn>
         <storelistscpn></storelistscpn>
         <maincpn></maincpn>
@@ -154,7 +365,11 @@
                 <h3>商品列表</h3>
             </div>
         </topbanner>
-        <div style="height: 6000px;background-color:yellow"></div>
+        <div>
+
+        </div>
+        <findstorelistscpn class="topmargin"></findstorelistscpn>
+        <findstorelistscpn></findstorelistscpn>
         <maincpn></maincpn>
         <backtotop></backtotop>
     </div>
@@ -169,7 +384,7 @@
                 <h3>订单列表</h3>
             </div>
         </topbanner>
-        <div style="height: 6000px;background-color:greenyellow"></div>
+        <orderinnercpn class="topmargin"></orderinnercpn>
         <maincpn></maincpn>
         <backtotop></backtotop>
     </div>
@@ -184,7 +399,75 @@
                 <h3>用户登陆</h3>
             </div>
         </topbanner>
-        <div style="height: 6000px;background-color:orange"></div>
+        <logininnercpn class="topmargin"></logininnercpn>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+<!--  注册界面对应的大组件 具体内容是注册信息-->
+
+<template id="registerTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center ">
+                <h3>用户注册</h3>
+            </div>
+        </topbanner>
+        <registerinnercpn class="topmargin"></registerinnercpn>
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+<!-- 商家信息的大组件 内部具体内容是商家具体信息-->
+
+
+<template id="businessInfoTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center">
+                <h3>商家信息</h3>
+            </div>
+        </topbanner>
+
+        <buscontentcpn class="topmargin"></buscontentcpn>
+        <orderbottomcpn class="bottommargin"></orderbottomcpn>
+
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+
+<!-- 确认订单的大组件 内部具体内容是订单信息-->
+<template id="conformOrderTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center">
+                <h3>确认订单</h3>
+            </div>
+        </topbanner>
+
+        <orderconforminnercpn class="topmargin bottommargin"></orderconforminnercpn>
+
+
+        <maincpn></maincpn>
+        <backtotop></backtotop>
+    </div>
+</template>
+
+<!-- 支付页面大组件 具体的内容是支付的方式-->
+<template id="payTemp">
+    <div>
+        <topbanner>
+            <div slot="content" class="text-white font-weight-bold text-center">
+                <h3>在线支付</h3>
+            </div>
+        </topbanner>
+        <payinnercpn class="topmargin"></payinnercpn>
+
+
         <maincpn></maincpn>
         <backtotop></backtotop>
     </div>
@@ -199,179 +482,6 @@
 <script src="js/vue-router.js"></script>
 <script src="js/custom.js"></script>
 
-<script>
-    //---------------------------------组件创建区--------------------------------------
-    // 创建底部主菜单栏组件
-    let maincpn = Vue.extend({
-       template:'#maintemp'
-    });
-    // 创建返回顶部组件
-    let backtopcpn = Vue.extend({
-        template:'#backtotop',
-        data:function () {
-            return {
-                topDistance:0    
-            }
-        },
-        mounted(){
-            window.addEventListener('scroll',this.getTopDistance)
-            
-        },
-        methods:{
-            getTopDistance:function () {
-                this.topDistance = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
-                
-            },
-            backtotop:function () {
-                let timeCounter = setInterval(function (){
-                    if(document.documentElement.scrollTop>0||document.body.scrollTop>0||window.pageYOffset>0) {
-                        document.documentElement.scrollTop -= 10;
-                        document.body.scrollTop -= 10;
-                        window.pageYOffset -= 10;
-                    }else {
-                        clearInterval(timeCounter);
-                    }
-                    // 控制台测试行
-                    console.log("~~~~~~~~~~~~~~");
-                },5);
-            }
-        }
-    });
-    // 创建主页面顶部组件
-    let topbanner = Vue.extend({
-        template:'#topbannertepm',
-        data:function () {
-            return {
-                topDistance:0
-            }
-        },
-        mounted(){
-            window.addEventListener('scroll',this.getTopDistance)
-        },
-        methods:{
-            getTopDistance:function () {
-                this.topDistance = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
-                if($(".topbannerinfo").length){
-                if(this.topDistance >40){
-                    $(".topbannerinfo").css("display","none");
-                    $(".topbannertepm").addClass("fixed-top");
-
-                }else{
-                    $(".topbannerinfo").css("display","block");
-                    $(".topbannertepm").removeClass("fixed-top");
-                }
-                }else{
-                    $(".topbannertepm").addClass("fixed-top");
-                }
-            },
-
-        }
-    });
-
-
-    // 创建顶部类型列表组件
-    let topTypeCpn = Vue.extend({
-        template:'#typelist'
-
-    });
-
-    // 创建广告信息栏的组件
-    let indexadCpn = Vue.extend({
-        template:'#indexad'
-    });
-
-    // 创建主页面店家列表组件
-    let storeListsCpn = Vue.extend({
-        template:'#storeLists'
-    });
-
-
-
-
-    // 创建主界面index的大组件
-    let homeCpn = Vue.extend({
-       template:'#homeTemp',
-       props:[]
-    });
-
-    // 创建发现界面find的大组件
-    let findCpn = Vue.extend({
-        template:'#findTemp'
-    });
-
-    // 创建订单了列表orderlist的大组件
-    let orderListCpn = Vue.extend({
-        template:'#orderListTemp'
-    });
-
-    // 创建登陆界面的login大组件
-    let loginCpn = Vue.extend({
-        template:'#loginTemp'
-    });
-
-
-    // ---------------------------组件注册区---------------------------------
-
-    // 小组件区
-    let maincpntt = Vue.component('maincpn', maincpn);
-    let backtoptt = Vue.component('backtotop', backtopcpn);
-    let topbannercpn = Vue.component('topbanner',topbanner);
-    let toptypecpn = Vue.component('toptypecpn',topTypeCpn);
-    let indexadcpn = Vue.component('indexadcpn',indexadCpn);
-    let storelistscpn = Vue.component('storelistscpn',storeListsCpn);
-
-
-    // 大组件区
-    let homecpn = Vue.component('homecpn',homeCpn);
-    let findcpn = Vue.component('findcpn',findCpn);
-    let orderlistcpn = Vue.component('orderlistcpn',orderListCpn);
-    let logincpn = Vue.component('logincpn',loginCpn);
-
-    //---------------------------过滤器区------------------------------------
-
-    //创建全局过滤器: 在金额的前面添加¥
-    Vue.filter('moneyFmt', function (value) {
-        if (parseFloat(value)) {
-            return "¥ " + parseFloat(value).toFixed(2);
-        }
-    });
-
-    // ---------------------------------路由配置区-----------------------------------------
-    // 配置路由
-    let routers = [
-        {path:'/home',component:homeCpn},
-        {path:'/find',component:findCpn},
-        {path:'/orderlist',component:orderListCpn},
-        {path:'/login',component:loginCpn},
-        {path:'/',component:homeCpn},
-        {path:'*',component:homeCpn}
-    ];
-    // 生成路由实例
-    let myrouter = new VueRouter({
-       routes:routers
-    });
-
-    // ---------------------------------Vue对象--------------------------------------------
-    const vm = new Vue({
-        el: "#app", /* */
-        data: {
-            infoLists:[],
-            topTypeLists:[]
-        },
-        router:myrouter,
-        mounted(){
-            this.$http.get("info/storeinfo.json").then(
-                function (res) {
-                    this.infoLists = res.body.dataZone;
-                    console.log(this.infoLists);
-                    this.topTypeLists = res.body.topInfoList;
-                    console.log(this.topTypeLists);
-                }
-            )
-        }
-    });
-
-</script>
 
 </body>
 </html>

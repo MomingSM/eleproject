@@ -18,43 +18,50 @@
           "gpic":"img/sp01.png",
           "gname":"纯肉鲜肉(水饺)",
           "gdes":"新鲜猪肉",
-          "gprice":15
+          "gprice":15,
+			"gcount":0
         },
         {"gno":2,
           "gpic":"img/sp02.png",
           "gname":"玉米鲜肉(水饺)",
           "gdes":"玉米鲜肉",
-          "gprice":16
+          "gprice":16,
+			"gcount":0
 		},
 		{"gno":3,
 		  "gpic":"img/sp03.png",
 		  "gname":"虾仁三鲜(蒸饺)",
 		  "gdes":"虾仁三鲜",
-		  "gprice":22
+		  "gprice":22,
+			"gcount":0
 		},
 		{"gno":4,
 		  "gpic":"img/sp04.png",
 		  "gname":"素三鲜(蒸饺)",
 		  "gdes":"素三鲜",
-		  "gprice":15
+		  "gprice":15,
+			"gcount":0
 		},
 		{"gno":5,
 		  "gpic":"img/sp05.png",
 		  "gname":"角瓜鸡蛋(蒸饺)",
 		  "gdes":"角瓜鸡蛋",
-		  "gprice":16
+		  "gprice":16,
+			"gcount":0
 		},
 		{"gno":6,
 		  "gpic":"img/sp06.png",
 		  "gname":"小白菜肉(水饺)",
 		  "gdes":"小白菜肉",
-		  "gprice":18
+		  "gprice":18,
+			"gcount":0
 		},
 		{"gno":7,
 		  "gpic":"img/sp07.png",
 		  "gname":"芹菜牛肉(水饺)",
 		  "gdes":"芹菜牛肉",
-		  "gprice":18
+		  "gprice":18,
+			"gcount":0
 		}
       ]
     },

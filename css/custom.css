@@ -35,8 +35,12 @@
     padding-left: 20px;
 }
 
+.typelist{
+    margin-top: 50px;
+}
 a {
     text-decoration: none;
+    color:#999999;
 
 }
 /*正常的未被访问过的链接*/
@@ -55,14 +59,21 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+.tenmodel img{
+    width: 80%;
+}
 
 /****************** 超级会员部分 ******************/
 .bgimg {
     /*此三个样式组合，可以保证背景图片充满整个容器*/
     height: 266px;
     background-image: url(../img/index_banner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     width: 100%;
     margin: 20px auto;
+    padding-left: 50px;
+    padding-top: 20px;
 }
 .supermember{
     background-color: #FEEDC1;
@@ -88,4 +99,41 @@ a:active {
 }
 .productimg{
     width: 100%;
+    max-width: 200px
+}
+.recommendstore{
+    height: 100px;
+
+}
+.recommendstore h3{
+    line-height: 100px;
+    margin: 0px auto;
+}
+/****************** 超级会员部分 ******************/
+.findStoreLists {
+    margin-top: 30px;
+    border-bottom: lightgray 1px solid;
+}
+
+/****************** 登陆注册部分 ******************/
+.loginCpnTemp{
+    margin: 30px auto;
+}
+.loginCpnTemp h4,.loginCpnTemp input,.loginCpnTemp div{
+    margin-top: 20px;
+}
+
+
+.sexinput label{
+    padding-right: 50px;
+}
+
+.busimg{
+    text-align: center;
+}
+.topmargin{
+    padding-top: 100px;
+}
+.bottommargin{
+    padding-bottom: 100px;
 }
